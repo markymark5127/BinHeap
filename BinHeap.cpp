@@ -12,6 +12,10 @@ template <class T>
 BinHeap<T>::BinHeap()
 {
     // TODO: Allocate initial heap array and store sentinel value
+    heapArray = new T[2];
+    maxSize =1;
+    heapSize = 0;
+    heapArray[0]=-1;
 }
 #endif
 
@@ -21,7 +25,7 @@ BinHeap<T>::BinHeap()
 template <class T>
 BinHeap<T>::~BinHeap()
 {
-    // TODO: Deallocate heap array
+   delete [] heapArray;
 }
 #endif
 
@@ -32,7 +36,7 @@ BinHeap<T>::~BinHeap()
 template <class T>
 bool BinHeap<T>::isEmpty()
 {
-    // TODO: Allocate initial heap array and store sentinel value
+    return heapSize == 0;
 }
 #endif
 
@@ -43,7 +47,11 @@ bool BinHeap<T>::isEmpty()
 template <class T>
 void BinHeap<T>::makeEmpty()
 {
-    // TODO: Allocate initial heap array and store sentinel value
+    delete [] heapArray;
+    heapArray = new T[2];
+    maxSize =1;
+    heapSize = 0;
+    heapArray[0]=-1;
 }
 #endif
 
@@ -54,7 +62,14 @@ void BinHeap<T>::makeEmpty()
 template <class T>
 void BinHeap<T>::resizeArray(int newSize)
 {
-    // TODO: Allocate initial heap array and store sentinel value
+    T tempArray [newSize+2];
+    for (int i = 0; i < heapSize+1 ; i++) {
+        tempArray[i] = heapArray[i];
+
+    }
+
+    heapArray = new T [newSize+2];
+    heapArray = tempArray;
 }
 #endif
 
@@ -65,7 +80,7 @@ void BinHeap<T>::resizeArray(int newSize)
 template <class T>
 int BinHeap<T>::leftIndex(int idx)
 {
-    // TODO: Allocate initial heap array and store sentinel value
+    return 2*idx;
 }
 
 #endif
@@ -77,7 +92,7 @@ int BinHeap<T>::leftIndex(int idx)
 template <class T>
 int BinHeap<T>::rightIndex(int idx)
 {
-    // TODO: Allocate initial heap array and store sentinel value
+    return 2*idx+1;
 }
 
 #endif
@@ -89,7 +104,7 @@ int BinHeap<T>::rightIndex(int idx)
 template <class T>
 int BinHeap<T>::parentIndex(int idx)
 {
-    // TODO: Allocate initial heap array and store sentinel value
+    return idx/2;
 }
 #endif
 
@@ -100,7 +115,7 @@ int BinHeap<T>::parentIndex(int idx)
 template <class T>
 int BinHeap<T>::minChild(int idx)
 {
-    // TODO: Allocate initial heap array and store sentinel value
+
 }
 #endif
 

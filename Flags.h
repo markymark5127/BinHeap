@@ -1,12 +1,12 @@
 // Comment to test individual method
-#define ALL 1
+//#define ALL 1
 
 // Uncomment to test individual method
 //#define CONSTRUCTOR 1
 //#define DESTRUCTOR 1
 //#define ISEMPTY 1
 //#define MAKEEMPTY 1
-//#define RESIZEARRAY 1
+#define RESIZEARRAY 1
 //#define LEFTINDEX 1
 //#define RIGHTINDEX 1
 //#define PARENTINDEX 1
