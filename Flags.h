@@ -6,7 +6,7 @@
 //#define DESTRUCTOR 1
 //#define ISEMPTY 1
 //#define MAKEEMPTY 1
-#define RESIZEARRAY 1
+//#define RESIZEARRAY 1
 //#define LEFTINDEX 1
 //#define RIGHTINDEX 1
 //#define PARENTINDEX 1
@@ -14,5 +14,5 @@
 //#define INSERT 1
 //#define REMOVEMIN 1
 //#define PERCOLATEUP 1
-//#define PERCOLATEDOWN 1
+#define PERCOLATEDOWN 1
 //#define BUILDHEAP 1

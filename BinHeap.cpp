@@ -62,14 +62,25 @@ void BinHeap<T>::makeEmpty()
 template <class T>
 void BinHeap<T>::resizeArray(int newSize)
 {
-    T tempArray [newSize+2];
-    for (int i = 0; i < heapSize+1 ; i++) {
+    std::cout<<"new size"<<newSize;
+    std::cout<<"\nheap size"<<heapSize;
+    std::cout<<"\nmax size"<<maxSize;
+    T tempArray [newSize+1];
+    for (int i = 0; i < heapSize ; i++) {
         tempArray[i] = heapArray[i];
 
     }
 
-    heapArray = new T [newSize+2];
-    heapArray = tempArray;
+    maxSize = newSize;
+    heapArray = new T [newSize+1];
+    heapSize = newSize;
+    std::cout<<"\nnew size"<<newSize;
+    std::cout<<"\nheap size"<<heapSize;
+    std::cout<<"\nmax size"<<maxSize;
+    for (int i = 0; i < maxSize ; i++) {
+        heapArray[i] = tempArray[i];
+
+    }
 }
 #endif
 
@@ -115,7 +126,15 @@ int BinHeap<T>::parentIndex(int idx)
 template <class T>
 int BinHeap<T>::minChild(int idx)
 {
-
+    if(rightIndex(idx) > heapSize)
+    {
+        if(leftIndex(idx) > heapSize)
+            return -1;
+        return leftIndex(idx);
+    }
+    if(heapArray[leftIndex(idx)] < heapArray[rightIndex(idx)])
+        return leftIndex(idx);
+    return rightIndex(idx);
 }
 #endif
 
@@ -126,7 +145,7 @@ int BinHeap<T>::minChild(int idx)
 template <class T>
 void BinHeap<T>::insert(const T & x)
 {
-    // TODO: Allocate initial heap array and store sentinel value
+ if
 }
 #endif
 
@@ -137,7 +156,7 @@ void BinHeap<T>::insert(const T & x)
 template <class T>
 T BinHeap<T>::removeMin()
 {
-    // TODO: Allocate initial heap array and store sentinel value
+
 }
 #endif
 
@@ -148,7 +167,7 @@ T BinHeap<T>::removeMin()
 template <class T>
 void BinHeap<T>::percolateUp(int idx)
 {
-    // TODO: Allocate initial heap array and store sentinel value
+
 }
 #endif
 
@@ -159,7 +178,26 @@ void BinHeap<T>::percolateUp(int idx)
 template <class T>
 void BinHeap<T>::percolateDown(int idx)
 {
-    // TODO: Allocate initial heap array and store sentinel value
+    if (rightIndex(idx) >= heapSize)
+    {
+
+        if (leftIndex(idx) >= heapSize)
+                      return;
+
+
+    }
+    if (heapArray[idx] > heapArray[minChild(idx)]) {
+        T tmp;
+
+        tmp = heapArray[minChild(idx)];
+
+        heapArray[minChild(idx)] = heapArray[idx];
+
+        heapArray[idx] = tmp;
+
+        percolateDown(minChild(idx));
+
+    }
 }
 #endif
 
@@ -170,7 +208,7 @@ void BinHeap<T>::percolateDown(int idx)
 template <class T>
 void BinHeap<T>::buildHeap(const T* arr, int size)
 {
-    // TODO: Allocate initial heap array and store sentinel value
+
 }
 #endif
 
