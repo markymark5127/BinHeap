@@ -62,7 +62,7 @@ void BinHeap<T>::makeEmpty()
 template <class T>
 void BinHeap<T>::resizeArray(int newSize)
 {
-    maxSize = newSize+1;
+    /*maxSize = newSize+1;
     T tempArray[maxSize+1];
     for (int i = 0; i < heapSize+1 ; i++)
     {
@@ -70,7 +70,14 @@ void BinHeap<T>::resizeArray(int newSize)
 
     }
         delete [] heapArray;
-        heapArray = tempArray;
+        heapArray = tempArray;*/
+    heapArray[2];
+    heapArray[0]=-1;
+    heapArray[0] = -1;
+    for(int i =1; i<newSize; i++)
+    {
+        insert(heapArray[i]);
+    }
 
 }
 #endif
@@ -157,6 +164,19 @@ T BinHeap<T>::removeMin()
     {
         return -1;
     }
+    if(heapSize < maxSize/3)
+    {
+        resizeArray(maxSize/2);
+    }
+    T returns = heapArray[1];
+    heapArray[1] = heapArray[heapSize];
+    heapSize = heapSize - 1;
+    percolateDown(1);
+    return returns;
+    if(isEmpty())
+    {
+        return -1;
+    }
     if(heapSize <= maxSize/3)
     {
         resizeArray(maxSize/2);
@@ -200,13 +220,25 @@ void BinHeap<T>::percolateUp(int idx)
 template <class T>
 void BinHeap<T>::percolateDown(int idx)
 {
+    while (minChild(idx) <= heapSize)
+    {
+        if(heapArray[idx] > heapArray[minChild(idx)])
+        {
+            T tmp = heapArray[idx];
+            heapArray[idx] = heapArray[minChild(idx)];
+            heapArray[minChild(idx)] = tmp;
+        }
+
+    }
+    idx = minChild(idx);
+/*
     while(heapArray[idx] > heapArray[minChild(idx)]) {
         T tmp;
         tmp = heapArray[minChild(idx)];
         heapArray[minChild(idx)] = heapArray[idx];
         heapArray[idx] = tmp;
         idx = minChild(idx);
-    }
+    }*/
 }
 #endif
 
@@ -217,7 +249,21 @@ void BinHeap<T>::percolateDown(int idx)
 template <class T>
 void BinHeap<T>::buildHeap(const T* arr, int size)
 {
-
+    heapArray[size];
+    maxSize =size;
+    heapSize = 0;
+    heapArray[0]=-1;
+    heapArray[0] = -1;
+    for(int i =0; i<size;i++)
+    {
+        insert(arr[i]);
+    }
+    int i = size;
+    while (i > 0)
+    {
+        percolateDown(i);
+        i = i - 1;
+    }
 }
 #endif
 
