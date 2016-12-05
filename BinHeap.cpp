@@ -160,38 +160,23 @@ void BinHeap<T>::insert(const T & x)
 template <class T>
 T BinHeap<T>::removeMin()
 {
-    if(isEmpty())
+    if(heapSize<1)
     {
         return -1;
-    }
-    if(heapSize < maxSize/3)
-    {
-        resizeArray(maxSize/2);
-    }
-    T returns = heapArray[1];
-    heapArray[1] = heapArray[heapSize];
-    heapSize = heapSize - 1;
-    percolateDown(1);
-    return returns;
-    if(isEmpty())
-    {
-        return -1;
-    }
-    if(heapSize <= maxSize/3)
-    {
-        resizeArray(maxSize/2);
-    }
-    heapSize--;
-    T item = heapArray[1];
-    heapArray[1] = heapArray[heapSize+1];
-    if(heapSize < 1)
-    {
-        makeEmpty();
-        return item;
     }
 
+    T tmp = heapArray[1];
+    heapArray[1] = heapArray[heapSize];
+    heapArray[heapSize] = NULL;
+    heapSize--;
     percolateDown(1);
-    return item;
+    if(heapSize < maxSize/3.0)
+    {
+        resizeArray(maxSize/2);
+    }
+
+    return tmp;
+
 }
 #endif
 
@@ -220,17 +205,17 @@ void BinHeap<T>::percolateUp(int idx)
 template <class T>
 void BinHeap<T>::percolateDown(int idx)
 {
-    while (minChild(idx) <= heapSize)
+    while (idx <= heapSize && minChild(idx) != -1)
     {
-        if(heapArray[idx] > heapArray[minChild(idx)])
+        if (heapArray[idx] > heapArray[minChild(idx)])
         {
             T tmp = heapArray[idx];
             heapArray[idx] = heapArray[minChild(idx)];
             heapArray[minChild(idx)] = tmp;
         }
-
+        idx = minChild(idx);
     }
-    idx = minChild(idx);
+
 /*
     while(heapArray[idx] > heapArray[minChild(idx)]) {
         T tmp;
