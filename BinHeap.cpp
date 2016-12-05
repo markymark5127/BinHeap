@@ -62,23 +62,14 @@ void BinHeap<T>::makeEmpty()
 template <class T>
 void BinHeap<T>::resizeArray(int newSize)
 {
-    /*maxSize = newSize+1;
-    T tempArray[maxSize+1];
-    for (int i = 0; i < heapSize+1 ; i++)
+    T* tempArray;
+    tempArray = new T[newSize + 1];
+    for(int i = 0; i<=newSize; i++)
     {
         tempArray[i] = heapArray[i];
-
     }
-        delete [] heapArray;
-        heapArray = tempArray;*/
-    heapArray[2];
-    heapArray[0]=-1;
-    heapArray[0] = -1;
-    for(int i =1; i<newSize; i++)
-    {
-        insert(heapArray[i]);
-    }
-
+    maxSize = newSize;
+    heapArray = tempArray;
 }
 #endif
 
