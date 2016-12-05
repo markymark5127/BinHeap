@@ -14,5 +14,5 @@
 //#define INSERT 1
 //#define REMOVEMIN 1
 //#define PERCOLATEUP 1
-#define PERCOLATEDOWN 1
+//#define PERCOLATEDOWN 1
 //#define BUILDHEAP 1

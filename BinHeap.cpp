@@ -62,25 +62,16 @@ void BinHeap<T>::makeEmpty()
 template <class T>
 void BinHeap<T>::resizeArray(int newSize)
 {
-    std::cout<<"new size"<<newSize;
-    std::cout<<"\nheap size"<<heapSize;
-    std::cout<<"\nmax size"<<maxSize;
-    T tempArray [newSize+1];
-    for (int i = 0; i < heapSize ; i++) {
+    maxSize = newSize+1;
+    T tempArray[maxSize+1];
+    for (int i = 0; i < heapSize+1 ; i++)
+    {
         tempArray[i] = heapArray[i];
 
     }
+        delete [] heapArray;
+        heapArray = tempArray;
 
-    maxSize = newSize;
-    heapArray = new T [newSize+1];
-    heapSize = newSize;
-    std::cout<<"\nnew size"<<newSize;
-    std::cout<<"\nheap size"<<heapSize;
-    std::cout<<"\nmax size"<<maxSize;
-    for (int i = 0; i < maxSize ; i++) {
-        heapArray[i] = tempArray[i];
-
-    }
 }
 #endif
 
@@ -145,7 +136,13 @@ int BinHeap<T>::minChild(int idx)
 template <class T>
 void BinHeap<T>::insert(const T & x)
 {
- if
+    if(heapSize >= maxSize)
+    {
+        resizeArray(heapSize * 2);
+    }
+    heapSize=heapSize+1;
+    heapArray[heapSize]=x;
+    percolateUp(heapSize);
 }
 #endif
 
@@ -156,7 +153,25 @@ void BinHeap<T>::insert(const T & x)
 template <class T>
 T BinHeap<T>::removeMin()
 {
+    if(isEmpty())
+    {
+        return -1;
+    }
+    if(heapSize <= maxSize/3)
+    {
+        resizeArray(maxSize/2);
+    }
+    heapSize--;
+    T item = heapArray[1];
+    heapArray[1] = heapArray[heapSize+1];
+    if(heapSize < 1)
+    {
+        makeEmpty();
+        return item;
+    }
 
+    percolateDown(1);
+    return item;
 }
 #endif
 
