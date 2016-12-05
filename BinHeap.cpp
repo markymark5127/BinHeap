@@ -25,7 +25,7 @@ BinHeap<T>::BinHeap()
 template <class T>
 BinHeap<T>::~BinHeap()
 {
-   delete [] heapArray;
+    delete [] heapArray;
 }
 #endif
 
@@ -156,7 +156,7 @@ T BinHeap<T>::removeMin()
         return -1;
     }
 
-    T tmp = heapArray[1];
+    T returnVar = heapArray[1];
     heapArray[1] = heapArray[heapSize];
     heapArray[heapSize] = NULL;
     heapSize--;
@@ -166,7 +166,7 @@ T BinHeap<T>::removeMin()
         resizeArray(maxSize/2);
     }
 
-    return tmp;
+    return returnVar;
 
 }
 #endif
@@ -178,12 +178,12 @@ T BinHeap<T>::removeMin()
 template <class T>
 void BinHeap<T>::percolateUp(int idx)
 {
-    T tmp;
+    T holding;
     while(heapArray[parentIndex(idx)] > heapArray[idx])
     {
-        tmp = heapArray[parentIndex(idx)];
+        holding = heapArray[parentIndex(idx)];
         heapArray[parentIndex(idx)] = heapArray[idx];
-        heapArray[idx] = tmp;
+        heapArray[idx] = holding;
         idx = parentIndex(idx);
     }
 }
@@ -196,25 +196,17 @@ void BinHeap<T>::percolateUp(int idx)
 template <class T>
 void BinHeap<T>::percolateDown(int idx)
 {
-    while (idx <= heapSize && minChild(idx) != -1)
+    if(leftIndex(idx) <= heapSize)
     {
-        if (heapArray[idx] > heapArray[minChild(idx)])
+        T min = minChild(idx);
+        if(heapArray[idx] > heapArray[min])
         {
-            T tmp = heapArray[idx];
-            heapArray[idx] = heapArray[minChild(idx)];
-            heapArray[minChild(idx)] = tmp;
+            T returning = heapArray[idx];
+            heapArray[idx] = heapArray[min];
+            heapArray[min] = returning;
+            percolateDown(min);
         }
-        idx = minChild(idx);
     }
-
-/*
-    while(heapArray[idx] > heapArray[minChild(idx)]) {
-        T tmp;
-        tmp = heapArray[minChild(idx)];
-        heapArray[minChild(idx)] = heapArray[idx];
-        heapArray[idx] = tmp;
-        idx = minChild(idx);
-    }*/
 }
 #endif
 
@@ -225,21 +217,17 @@ void BinHeap<T>::percolateDown(int idx)
 template <class T>
 void BinHeap<T>::buildHeap(const T* arr, int size)
 {
-    heapArray[size];
-    maxSize =size;
-    heapSize = 0;
-    heapArray[0]=-1;
-    heapArray[0] = -1;
-    for(int i =0; i<size;i++)
+    resizeArray(size);
+    for(int i=0; i<size; i++)
     {
-        insert(arr[i]);
+        heapArray[i+1] = arr[i];
     }
-    int i = size;
-    while (i > 0)
+    heapSize = size;
+    for(int i = heapSize/2; i>0; i--)
     {
         percolateDown(i);
-        i = i - 1;
     }
+
 }
 #endif
 
