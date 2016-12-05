@@ -182,7 +182,14 @@ T BinHeap<T>::removeMin()
 template <class T>
 void BinHeap<T>::percolateUp(int idx)
 {
-
+    T tmp;
+    while(heapArray[parentIndex(idx)] > heapArray[idx])
+    {
+        tmp = heapArray[parentIndex(idx)];
+        heapArray[parentIndex(idx)] = heapArray[idx];
+        heapArray[idx] = tmp;
+        idx = parentIndex(idx);
+    }
 }
 #endif
 
@@ -193,25 +200,12 @@ void BinHeap<T>::percolateUp(int idx)
 template <class T>
 void BinHeap<T>::percolateDown(int idx)
 {
-    if (rightIndex(idx) >= heapSize)
-    {
-
-        if (leftIndex(idx) >= heapSize)
-                      return;
-
-
-    }
-    if (heapArray[idx] > heapArray[minChild(idx)]) {
+    while(heapArray[idx] > heapArray[minChild(idx)]) {
         T tmp;
-
         tmp = heapArray[minChild(idx)];
-
         heapArray[minChild(idx)] = heapArray[idx];
-
         heapArray[idx] = tmp;
-
-        percolateDown(minChild(idx));
-
+        idx = minChild(idx);
     }
 }
 #endif
